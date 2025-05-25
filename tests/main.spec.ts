@@ -7,22 +7,37 @@ describe("main.fc contract tests", () => {
     it("our first test", async () => {
         const codeCell = Cell.fromBoc(Buffer.from(hex, "hex"))[0];
         const blockchain = await Blockchain.create();
+        const initAddress = await blockchain.treasury("initAddress");
         const myContract = blockchain.openContract(
-            await MainContract.createFromConfig({}, codeCell)
+            await MainContract.createFromConfig({
+                number: 1992,
+                address: initAddress.address
+            }, codeCell)
         );
 
         const senderWallet = await blockchain.treasury("sender");
         console.log(`发送者: ${senderWallet.getSender().address}`)
         // 发送内部消息
+        /* 
         const sendMessageResult = await myContract.sendInternalMessage(senderWallet.getSender(), toNano("0.05")); // 50 000 000
-        
         expect(sendMessageResult.transactions).toHaveTransaction({
             from: senderWallet.address,
             to: myContract.address,
             success: true
         })
-
         const data = await myContract.getData();
         expect(data.recent_sender.toString()).toBe(senderWallet.address.toString())
+         */
+
+        const sendMessageResult = await myContract.sendIncrementMessage(senderWallet.getSender(), toNano("0.05"), 1);
+        expect(sendMessageResult.transactions).toHaveTransaction({
+            from: senderWallet.address,
+            to: myContract.address,
+            success: true
+        })
+        const data = await myContract.getDataContract();
+        expect(data.recent_sender.toString()).toBe(senderWallet.address.toString())
+        expect(data.number.toString()).toBe(1993)
+
     })
 })
