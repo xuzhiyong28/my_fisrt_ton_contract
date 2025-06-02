@@ -26,6 +26,16 @@ export class MainContract implements Contract {
         return new MainContract(address, init);
     }
 
+
+    async sendDeployMessage(provider: ContractProvider, via: Sender, value: bigint) {
+        await provider.internal(via, {
+            value,
+            sendMode: SendMode.PAY_GAS_SEPARATELY,
+            body: beginCell().storeUint(2, 32).endCell()
+        })
+    }
+
+
     /**
      * 发送一个内部消息
      */

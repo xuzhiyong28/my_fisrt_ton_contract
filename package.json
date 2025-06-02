@@ -5,6 +5,7 @@
   "license": "MIT",
   "devDependencies": {
     "@swc/core": "^1.11.29",
+    "@ton-community/blueprint": "^0.12.0",
     "@ton-community/func-js": "^0.9.1",
     "@ton-community/sandbox": "^0.11.0",
     "@ton-community/test-utils": "^0.3.0",
@@ -26,12 +27,14 @@
     "compile": "ts-node ./scripts/compile.ts",
     "test": "yarn compile && yarn jest",
     "deploy": "TESTNET=true yarn compile && ts-node ./scripts/deploy.ts",
+    "deploy2": "yarn blueprint run",
     "deploy:mainnet": "yarn compile && ts-node ./scripts/deploy.ts",
     "onchaintest": "ts-node ./scripts/onchaintest.ts",
     "onchaintest:mainnet": "ts-node ./scripts/onchaintest.ts"
   },
   "dependencies": {
     "@orbs-network/ton-access": "^2.3.3",
-    "dotenv": "^16.5.0"
+    "dotenv": "^16.5.0",
+    "vite-plugin-node-polyfills": "^0.23.0"
   }
 }
