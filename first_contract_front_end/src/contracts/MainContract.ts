@@ -1,3 +1,4 @@
+
 import {Address, beginCell, Cell, Contract, contractAddress, ContractProvider, Sender, SendMode} from "ton-core";
 
 
@@ -16,7 +17,7 @@ export function mainContractConfigToCell(config: MainContractConfig): Cell {
 }
 
 export class MainContract implements Contract {
-    constructor(readonly address: Address, readonly init?: {code: Cell, data: Cell}) {
+    constructor(readonly address: Address, readonly init?: { code: Cell, data: Cell }) {
     }
 
     static createFromConfig(config: MainContractConfig, code: Cell, workchain = 0) {
@@ -85,7 +86,7 @@ export class MainContract implements Contract {
     /***
      * 发送提款消息
      */
-    async sendWithdrawalMessage(provider: ContractProvider, sender: Sender, value: bigint, amount: bigint){
+    async sendWithdrawalMessage(provider: ContractProvider, sender: Sender, value: bigint, amount: bigint) {
         const msg_body = beginCell()
             .storeUint(3, 32) // op
             .storeCoins(amount)
