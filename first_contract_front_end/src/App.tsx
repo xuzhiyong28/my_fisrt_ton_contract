@@ -14,11 +14,24 @@ function App() {
       contract_balance
   ] = useMainContract();
   return (
-    <div className='App'>
-        <TonConnectButton />
+    <div>
+        <div>
+            <TonConnectButton />
+        </div>
+        <div>
+            <div className='Card'>
+                <b>Our contract Address</b>
+                <div className='Hint'>{contract_address?.slice(0, 30) + "..."}</div>
+                <b>Our contract Balance</b>
+                <div className='Hint'>{contract_balance}</div>
+            </div>
+            <div className='Card'>
+                <b>Counter Value</b>
+                <div>{counter_value ?? "Loading..."}</div>
+            </div>
+        </div>
     </div>
-
-  )
+  );
 }
 
 export default App
